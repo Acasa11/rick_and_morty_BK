@@ -20,6 +20,10 @@ function App() {
 
    const [ characters , setCharacters] = useState([])
 
+   const [access , setAccess] = useState(false)
+   const EMAIL = 'ejemplo@gmail.com'
+   const PASSWORD = '123456'
+
 
    function onSearch(id) {
       const characterId = characters.filter(
@@ -28,7 +32,9 @@ function App() {
       if(characterId.length){
          return alert(`${characterId[0].name} ya existe!`)
       }
-      axios(`${URL}/${id}?key=${API_KEY}`).then(
+      // axios(`${URL}/${id}?key=${API_KEY}`)
+      axios(`http://localhost:3001/rickandmorty/character/${id}`)
+         .then(
          ({ data }) => {
             if (data.name) {
                setCharacters([...characters, data])
@@ -46,6 +52,31 @@ function App() {
       setCharacters(characters.filter(char => char.id !== Number(id)))
       dispatch(removeFav(id))
       }
+
+   // function login(userData) {
+   //    const { email, password } = userData;
+   //    const URL = 'http://localhost:3001/rickandmorty/login/';
+   //    axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
+   //       const { access } = data;
+   //       if(access){
+   //          setAccess(data)
+   //          access && navigate('/home')
+   //       } else {
+   //          alert("Credenciales incorrectas!")
+   //       }
+   //       setAccess(data);
+   //       access && navigate('/home');
+   //    });
+   // }
+
+   // function logout() {
+   //    setAccess(false)
+   // }
+
+   // useEffect(() => {
+   //    !access && navigate('/home')
+   //    // !access && navigate('/')
+   // }, [access])
 
    return (
       <div className='App'>

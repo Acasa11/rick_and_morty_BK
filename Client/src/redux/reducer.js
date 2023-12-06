@@ -8,22 +8,15 @@ const inicialState = {
 export default function reducer(state = inicialState, {type, payload}) {
     switch(type){
         case ADD_FAV:{
-            return {
-                ...state,
-                allCharacters: [...state.allCharacters, payload],
-                myFavorites: [...state.allCharacters, payload]
-            }
+            return { ...state, myFavorites: payload, allCharacters: payload };
         }
 
         case REMOVE_FAV:
-            const filteredCharacters = state.myFavorites.filter(
-                favorite => favorite.id !== Number(payload)
-            )
-            return {
-                ...state,
-                allCharacters: filteredCharacters,
-                myFavorites: filteredCharacters
-            }
+            // const filteredCharacters = state.myFavorites.filter(
+            //     favorite => favorite.id !== Number(payload)
+            // )
+            return { ...state, myFavorites: payload };
+
         case FILTER:
             if(payload === "All") return {
                 ...state,
